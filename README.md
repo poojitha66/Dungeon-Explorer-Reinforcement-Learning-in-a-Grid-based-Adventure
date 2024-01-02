@@ -35,13 +35,27 @@ This journey helps us understand how the player's choices affect their progress,
 
 =============================================================================================
 
-### Part II: Implement SARSA
-- **Algorithm:** SARSA (State-Action-Reward-State-Action) is applied for on-policy learning.
-- **Evaluation Results:**
+### Implementation of SARSA Algorithm
+
+SARSA, known as State-Action-Reward-State-Action, is a learning approach focused on the agent's actions within an environment. It's a technique where the agent constantly updates its understanding based on its current state, the action it takes, the reward received, and the subsequent state it transitions into. In our implementation, the 'train_sarsa' method houses the core update function responsible for adjusting Q-values. This method captures the essence of SARSA by considering observed transitions and incorporating the chosen action, received rewards, and state changes. We employ an epsilon-greedy strategy for action selection, allowing the agent to balance between exploring new actions and exploiting learned knowledge. Our training regimen spans 500 episodes, enabling the agent to learn from interactions with the environment, updating Q-values accordingly. Throughout this process, we track episode-wise rewards, visualizing the learning curve through a graph showcasing total rewards. Moreover, monitoring the decay of epsilon across episodes provides insights into the exploration factor's evolution during training.
+
+### Evaluation Insights
+
+In the realm of SARSA, our agent's learning journey unveils intriguing insights. Beginning with humble rewards, the agent evolves its strategy, eventually reaching substantial rewards—peaking at 474 in one episode. The epsilon decay graph illustrates a deliberate shift from exploratory actions to more deterministic, greedy choices. Examining the initial and trained Q-tables provides a glimpse into the learned policy, showcasing the evolving strategies and preferences.
+
+Hyperparameter tuning, a key aspect of refining the SARSA algorithm, involves tweaking factors like the discount factor (γ) and epsilon decay rate. These adjustments aim to enhance the agent's learning curve, fine-tuning its decisions for more optimal outcomes. By experimenting with these parameters, we aim to harness SARSA's potential, further honing the agent's ability to navigate the dungeon environment with efficiency and strategy.
+
+  
   - Initial and trained Q-tables.
+     - ![Q-Table](images_desc/Intial-Qtable(SARSA).png)
+
   - Total reward per episode graph.
+     - ![Total-reward](images_desc/total-reward-per-episode-SARSA.png)
+    
   - Epsilon decay graph.
-- **Hyperparameter Tuning:** Experimenting with parameters like discount factor (γ) and epsilon decay rate for improved results.
+    - ![decay-graph](images_desc/epsilon_decay.png)
+  
+=============================================================================================
 
 ### Part III: Implement Double Q-learning
 - **Algorithm:** Double Q-learning for off-policy learning, maintaining two Q-tables.
