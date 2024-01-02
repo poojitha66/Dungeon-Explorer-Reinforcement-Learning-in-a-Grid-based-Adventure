@@ -58,12 +58,36 @@ Hyperparameter tuning, a key aspect of refining the SARSA algorithm, involves tw
 =============================================================================================
 
 ### Part III: Implement Double Q-learning
-- **Algorithm:** Double Q-learning for off-policy learning, maintaining two Q-tables.
-- **Evaluation Results:**
-  - Initial and trained Q-tables.
-  - Total reward per episode graph.
-  - Epsilon decay graph.
-- **Hyperparameter Tuning:** Exploring parameters similar to SARSA for optimization.
+
+In this phase, we applied the Double Q-Learning algorithm to tackle challenges in our interview environment. Unlike SARSA, which is on-policy, Double Q-Learning is an off-policy algorithm. The key innovation lies in maintaining two Q-tables, Q1 and Q2, for more robust learning. The update function, within the "train_double_Q" method, involves updating Q1 or Q2 based on a random choice. If the random number is less than 0.5, Q1 is updated; otherwise, Q2 is updated. This dual-table approach refines the agent's understanding of total expected rewards for actions in specific states.
+
+**Update Function:**
+Both Q1 and Q2 values are updated considering immediate rewards, discounted future rewards from the next state, and the current Q-values. Q1 values are based on Q2 values, and vice versa, balancing the learning process.
+
+**Greedy Action Selection - Epsilon-Greedy Exploration:**
+For action selection, the epsilon-greedy strategy is employed. The agent either randomly chooses an action with a certain probability (epsilon) or selects the action with the highest Q-values from both sets, Q1 and Q2.
+
+**Training Loop:**
+The "train_double_Q" method iterates over 500 episodes. During each episode, the agent interacts with the environment, updating Q1 or Q2 values based on random choices. Rewards obtained in each episode are tracked to visualize the learning progress.
+
+**Graph Analysis:**
+Upon running the scenario for 500 episodes, the rewards graph indicates significant progress. The agent, focusing on greedy actions from the learning policy, initially had minimal rewards. However, over episodes, it effectively exploited incentives, resulting in substantial rewards. The epsilon decay graph reveals a gradual reduction in epsilon, indicating a shift towards choosing mainly greedy actions from the learning policy.
+
+**Evaluation Results:**
+- **Initial and Trained Q-Tables:** Displaying the Q1 and Q2 tables before and after training.
+  
+     - ![Q-Table](images_desc/Double-Q-learning-Q-table.png)
+
+- **Total Reward per Episode Graph:** Visualizing the learning progress through rewards over 500 episodes.
+ 
+     ![Total-reward](images_desc/total-reward-per-episode-d-Q.png)
+
+- **Epsilon Decay Graph:** Demonstrating the reduction in epsilon over episodes, reflecting the agent's focus on greedy actions.
+
+     ![decay-graph](images_desc/epsilon-decay-D-Q.png)
+
+
+This implementation showcases the effectiveness of Double Q-Learning in enhancing the agent's decision-making in our interview environment.
 
 ### Bonus Task: n-step Bootstrapping
 - **Implementation:** Added n-step Bootstrapping (e.g., 2-step or 3-step SARSA) for comparison.
