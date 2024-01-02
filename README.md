@@ -78,7 +78,7 @@ Upon running the scenario for 500 episodes, the rewards graph indicates signific
   
      - ![Q-Table](images_desc/Double-Q-learning-Q-table.png)
 
-- **Total Reward per Episode Graph:** Visualizing the learning progress through rewards over 500 episodes.
+- **Total Reward per Episode Graph:** Visualizing the learning progress through rewards over 1000 episodes.
  
      ![Total-reward](images_desc/total-reward-per-episode-d-Q.png)
 
@@ -89,71 +89,39 @@ Upon running the scenario for 500 episodes, the rewards graph indicates signific
 
 This implementation showcases the effectiveness of Double Q-Learning in enhancing the agent's decision-making in our interview environment.
 
-### Bonus Task: n-step Bootstrapping
+
+## Compare the performance of both algorithms in the same environment
+
+Based on the above rewards vs episodes plot, it appears that the SARSA algorithm consistently outperforms the Double Q-learning algorithm in the same environment.
+The x-axis of the plot represents the episode number, and the y-axis represents the reward value. The blue line represents the SARSA algorithm, and the red line represents the Double Q-learning algorithm.
+Throughout the episodes, the reward values for both algorithms fluctuate. However, the SARSA algorithm consistently achieves a higher reward value than the Double Q-learning algorithm. This suggests that the SARSA algorithm is more effective in this environment.
+
+The possible understanding is:
+
+**Exploration vs Exploitation Trade-off:** SARSA, being an on-policy algorithm, follows the policy that’s being learned, while Double Q-learning, an off-policy method, learns the value of the optimal policy irrespective of the policy being followed. This difference could lead to SARSA making safer, more conservative updates, which might be beneficial in the dungeons and dragons’ environment.
+
+**Reward Structure Sensitivity:** SARSA considers the next action that the policy will take and therefore can be more sensitive to the reward structure of the state-action pairs in the environment. Particularly in a closed environment such as ours, the reward structure favors the characteristics of the SARSA algorithm, which could explain the improved performance.
+
+ ![Compare-graph](images_desc/SARSAvsDQlearning.png)
+
+
+
+## Comparison of SARSA vs 2 step Bootstrapping SARSA:
+
+ ![Compare-graph](images_desc/bootstrap.png)
+
+
+### N-step Bootstrapping
 - **Implementation:** Added n-step Bootstrapping (e.g., 2-step or 3-step SARSA) for comparison.
-- **Comparison:** Evaluate and compare results with the base algorithm.
+- 
+#### Consistent Performance
+In our dungeon quest, a fascinating trend emerges: the 2-step bootstrapping SARSA algorithm consistently outshines its SARSA counterpart. Across episodes, both algorithms experience reward fluctuations, yet the 2-step bootstrapping SARSA consistently secures higher reward values. This pattern strongly indicates its superior effectiveness within this environment.
 
-### GitHub README
-1. **Environment Setup:**
-   - Define the dungeon scenario and elements.
-   - Follow Gymnasium structure for environment methods.
+#### Unveiling the Advantages
+What sets the 2-step bootstrapping SARSA apart? It delves into multi-step updates, leveraging a 2-step return mechanism to update Q-values. Unlike SARSA, which considers immediate rewards, the 2-step approach factors in the next two rewards. This expanded perspective offers a more accurate estimation of future rewards, proving beneficial, especially in scenarios where rewards for actions are delayed or spread over time.
 
-2. **Usage:**
-   - Instructions for running a random agent and visualizing the grid.
-   - Guidelines for implementing SARSA and Double Q-learning.
+#### Balancing Act: Exploration and Exploitation
+Both SARSA and 2-step bootstrapping SARSA operate as on-policy algorithms, but the multi-step update presents a nuanced shift in their exploration-exploitation balance. The 2-step bootstrapping SARSA seems adept at navigating this delicate trade-off, potentially achieving a finer equilibrium between exploring new strategies and exploiting known profitable actions within our specific dungeon environment.
 
-3. **Results:**
-   - Include visuals of the environment.
-   - Display SARSA and Double Q-learning results with graphs.
-   - Discuss hyperparameter tuning and bonus task comparison.
+This fascinating exploration showcases how a slight alteration in algorithmic approach—leveraging multi-step updates—can wield significant impact, offering a more refined and rewarding journey through the complexities of our dungeon adventure.
 
-4. **Safety Measures:**
-   - Brief review on ensuring agent actions within defined limits.
-   - Explanation of how safety in the environment is maintained.
-
-5. **Contributing:**
-   - Guidelines for contributions and potential improvements.
-
-6. **License:**
-   - Specify the project's license information.
-
-### Conclusion
-Dungeon Explorer offers a hands-on exploration of reinforcement learning algorithms in a grid-based adventure. The project provides insights into both on-policy (SARSA) and off-policy (Double Q-learning) methods, along with a bonus task for advanced exploration. Contributions and feedback are welcome to enhance the learning experience.
-
-
-### Setting
-Imagine you're in a dungeon filled with dragons, treasures, keys, and mysterious doors. The entire dungeon is laid out on a 5x5 grid, creating a compact yet adventurous space.
-
-### Movement
-You, as the player, have the ability to move in four directions: Up, Down, Left, and Right, navigating through the grid.
-
-### Objectives
-Your main goal is to reach the bottom-right corner of the dungeon, collecting treasures, keys, and unlocking doors along the way. The key is to accumulate as many rewards as possible to succeed in your quest.
-
-### Elements
-- **Player State:** Your starting position within the grid.
-- **Enemy Positions:** Dragons lurking in specific grid locations.
-- **Rewards:**
-  - Moving onto an enemy position results in a penalty of -10.
-  - Discovering a treasure yields a reward of 10.
-  - Successfully unlocking a door with a key rewards +5.
-  - Attempting to open a door without a key results in a penalty of -5.
-  - Taking action in the same state incurs a small penalty of -2.
-  - Successfully moving to a new state is rewarded with +1.
-
-### Visual Representation
-The environment offers a visually appealing rendering method, showcasing the grid with unique images for players, enemies, treasures, keys, doors, and clear pathways.
-![Image Description]()
-
-
-### Summary of Environment Features
-- **Total States:** 25 (5x5 grid)
-- **Number of Actions:** 4 possible actions (Up, Down, Left, Right)
-- **Player State:** Indicates the initial player position.
-- **Enemy Positions:** Represented by dragon images.
-- **Rewards:** Varied rewards and penalties based on player interactions.
-
----
-
-### Random Exploration of Dungeon Environment: 10 Timesteps Interaction
-To understand the dynamics of the Dungeon environment, we performed 10 random timesteps, showcasing different states of player behavior. Each step involves a random action, resulting in state transitions with associated rewards. This provides a glimpse into the interactive nature of players within the Dungeon environment.
